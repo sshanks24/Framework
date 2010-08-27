@@ -40,6 +40,7 @@ begin
   wb,ws = excel[0][1,2]
   
   g.config.click
+  sleep(2)
   g.logn_chk(g.users,excel[1])
  
   g.table_info(1,4,2,2,ws)
