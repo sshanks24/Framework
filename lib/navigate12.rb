@@ -55,6 +55,10 @@ module Nav
 
   # - Equipment / Agent Information navigation link.
   def equipinfo
+    # Wait until the navigation pane exists.
+    Watir::Waiter::wait_until {nav.link(:text, 'Factory Defaults').exists? }
+    # The selection of 'Factory Defaults' was arbitrary but it exists accross
+    # all 3 cards for now...
     if (nav.link(:text, 'Equipment Information')).exists?
       nav.link(:text, 'Equipment Information')
     else
