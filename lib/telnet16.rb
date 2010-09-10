@@ -139,4 +139,20 @@ module Telnet_cstm
     telnet_save_exit(telnet)
   end
 
+  def main_menu(telnet)
+    esc = "\x1b"
+    flag = true
+    main_menu_regex = 'Main Menu'
+    Thread.new {
+      while flag == true
+        telnet.write(esc){|c| print c}
+        sleep(1)
+      end
+    }
+    while flag == true
+      telnet.waitfor('String' => main_menu_regex, 'waittime' => 1){|c| print c}
+      flag = false
+    end
+  end
+
 end
