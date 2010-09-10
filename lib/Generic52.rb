@@ -41,6 +41,7 @@ require 'setup29'
 require 'teardown14'
 require 'snmp1'
 require 'telnet16'
+require 'bacnet'
 
 
 class Generic_parent
