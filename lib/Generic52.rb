@@ -252,6 +252,28 @@ class Generic_parent
     end
     return nil
   end
+
+  # Stops execution until 20 seconds after a ping echo reply is received
+  # Useful
+  def wait_for_reboot(ip)
+    puts "\n\n"
+    flag = true
+    reply_from = Regexp.new('Reply from')
+    while flag == true
+      puts "Waiting for device to reboot"
+      sleep(20)
+      results = `ping #{ip}`
+      puts results
+      if (reply_from.match(results)) then
+        puts "Device is booting..."
+        sleep(20)
+        flag = false
+      end
+    end
+    puts "\n\n"
+
+  end
+
 end
 
 class Array
