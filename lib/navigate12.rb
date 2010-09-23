@@ -470,7 +470,7 @@ module Nav
       $ie.frame(:index, i).images.each do |image|
         if image.src =~ /#{image_name}/
           image.click
-          sleep(1.5) #TODO Figure out a way to remove this sleep
+          sleep(5) #TODO Figure out a way to remove this sleep
         end
       end
     end
