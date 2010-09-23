@@ -34,7 +34,7 @@ begin
 
   g.count_frames
   g.monitor.click
-  sleep(2)
+  sleep(5)
   while g.count_images('folderplus.gif') > 0
     g.click_all('folderplus.gif')
   end
@@ -42,15 +42,18 @@ begin
   g.populate_links_array
 
   #Clean up the links array for the navigation frame
-  
-  g.links_array[1].each do |link|
+
+  for i in 0..g.links_array[1].size-1 do
     begin
       #We don't want to click links with parenthesis for this test case
-      unless link.text =~ /\(\d*\)/ then
-        puts "Trying link: #{link.text}"
-        $ie.frame(:index, 2).link(:id, link.id).click
+      unless g.links_array[1][i].text =~ /\(\d*\)/ then
+        puts "Trying link: #{g.links_array[1][i].text}"
+        $ie.frame(:index, 2).link(:id, g.links_array[1][i].id).click
         sleep(2) #Wait for the table to finish populating
-        g.table_to_ss(3,ws,link.text)
+        if g.links_array[1][i-1].text =~ /\[\d*\]/ then
+          g.table_to_ss(3,ws,g.links_array[1][i].text + ' ' + $&)
+        else g.table_to_ss(3,ws,g.links_array[1][i].text)
+        end
       end
     rescue => e
       if e.to_s =~ /unknown property or method/ then
